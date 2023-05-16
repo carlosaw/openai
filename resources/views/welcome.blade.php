@@ -14,7 +14,7 @@
     </header>
     <main>
         <h2>Gerador de receitas</h2>
-        <p>Tire Proveito dos Ingredientes que Você Já Tem: Descubra Receitas Deliciosas que Sua Geladeira Possui!</p>
+        <p>Seu Chefe de Cozinha: Crie Receitas Únicas e Saborosas Com Os Ingredientes que Você Possui na Geladeira!</p>
         <article>
             <label> Ingredientes </label>
             <form method="POST" action="{{ route('ingredientesAction') }}">

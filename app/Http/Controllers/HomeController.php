@@ -16,11 +16,10 @@ class HomeController extends Controller
     }
 
     public function ingredientesAction(Request $r): View {
-        
-
+        //dd($r->all());
         $response = Http::withHeaders([
             
-            'Authorization' => 'Bearer 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',
+            'Authorization' => 'Bearer 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',
             'Content-Type' => 'application/json',
         ])->post('https://api.openai.com/v1/completions', [
             'model' => "text-davinci-003",
