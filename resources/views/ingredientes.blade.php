@@ -10,17 +10,19 @@
 </head>
 <body>
     <header>
-        <h1> Muskai - 🧔 </h1>
+        <h1> Gerador de receitas </h1>
+        <nav>
+            <a href="/">Voltar</a>
+        </nav>
     </header>
-    <main>
-        <h2>Gerador de receitas</h2>
+    <main id="ingredientes">
         <p>Seu Chefe de Cozinha: Crie Receitas Únicas e Saborosas Com Os Ingredientes que Você Possui na Geladeira!</p>
         <article>
             <label> Ingredientes </label>
             <form method="POST" action="{{ route('ingredientesAction') }}">
                 @csrf
-                <input type="text" name="ingredientes"/>
-                <input type="submit" value="Senta o dedo nesta coisa" value="{{ $ingredientes ?? ''}}"/>
+                <input type="text" name="ingredientes" value="{{ $ingredientes ?? ''}}"/>
+                <input type="submit" value="Senta o dedo nesta coisa"/>
             </form>
         </article>
     </main>

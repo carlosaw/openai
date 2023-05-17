@@ -10,18 +10,38 @@ use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
     //
-    public function index(Request $r): View {
-        return view('welcome');
+    public function index(): View {
+        return view('home');
     }
 
-    public function ingredientesAction(Request $r): View {
-        //dd($r->all());
+    public function copy(Request $r): View {
+        return view('copy');
+    }
+
+    public function ingredientes(Request $r): View {
+        return view('ingredientes');
+    }
+
+    public function copyAction(Request $r): View {
+        dd($r->all());
+        /*
+            "nome_produto"
+            "preco_produto" => "33"
+            "caracteristicas_produto"
+            "publico_produto"
+            "estilo_copy"
+        */
+        return view('copy');
+    }
+
+    public function ingredientesAction(Request $r): View {   
+    //dd($r->all());
     $response = Http::withHeaders([       
-        'Authorization' => 'Bearer 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',
+        'Authorization' => 'Bearer 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',
         'Content-Type' => 'application/json',
     ])->post('https://api.openai.com/v1/completions', [
         'model' => "text-davinci-003",
-        'prompt' => 'Gere uma receita SOMENTE com os seguintes ingredientes: '.$r->ingredientes,
+        'prompt' => 'Gere uma receita SOMENTE com os seguintes ingredientes: '.$r->ingredientes . 'Não inclua ingredientes extras! Se não conseguir gerar a receita, responda: "Impossível! Vá ao mercado!"',
         'max_tokens' => 400,
     ]);
 
@@ -31,7 +51,7 @@ class HomeController extends Controller
         $viewResult['receita'] = $result['choices'][0]['text'];
         $viewResult['ingredientes'] = $r->ingredientes;
 
-        return view('welcome', $viewResult);
+        return view('ingredientes', $viewResult);
     } else {
         // Lida com o erro na requisição
         dd($response->status(), $response->json());
