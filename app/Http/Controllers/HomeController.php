@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
@@ -17,35 +16,38 @@ class HomeController extends Controller
 
     public function ingredientesAction(Request $r): View {
         //dd($r->all());
-        $response = Http::withHeaders([
-            
-            'Authorization' => 'Bearer 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',
-            'Content-Type' => 'application/json',
-        ])->post('https://api.openai.com/v1/completions', [
-            'model' => "text-davinci-003",
-            'prompt' => 'Gere uma receita com os seguintes ingredientes:'.$r->ingredientes,
-            'max_tokens' => 100,
-        ]);
+    $response = Http::withHeaders([       
+        'Authorization' => 'Bearer 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',
+        'Content-Type' => 'application/json',
+    ])->post('https://api.openai.com/v1/completions', [
+        'model' => "text-davinci-003",
+        'prompt' => 'Gere uma receita SOMENTE com os seguintes ingredientes: '.$r->ingredientes,
+        'max_tokens' => 400,
+    ]);
 
-        if ($response->successful()) {
-            $result = $response->json();
-            // Faça algo com o resultado retornado pela API da OpenAI
-            dd($result);
-        } else {
-            // Lida com o erro na requisição
-            dd($response->status(), $response->json());
+    if ($response->successful()) {
+        $result = $response->json();
+        // Faça algo com o resultado retornado pela API da OpenAI
+        $viewResult['receita'] = $result['choices'][0]['text'];
+        $viewResult['ingredientes'] = $r->ingredientes;
+
+        return view('welcome', $viewResult);
+    } else {
+        // Lida com o erro na requisição
+        dd($response->status(), $response->json());
     }
 
         // $client = New Client([
-        //     'base_url' => 'https://api.openai.com/v1/',
+        //     'base_url' => 'https://api.openai.com/v1/completions',
         //     'headers' => [
         //         'Content-Type' => 'applications/json',
-        //         'Authorization' => 'Bearer' . env('OPENAI_API_KEY')
+        //         'Authorization' => 'Bearer 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'
         //     ]
         // ]);
         
         // $response = $client->post('completions', [
         //     'json' => [
+        //         'model' => "text-davinci-003",
         //         'prompt' => 'Hello, World!',
         //         'temperature' => 0.5,
         //         'max_tokens' => 50

@@ -20,10 +20,16 @@
             <form method="POST" action="{{ route('ingredientesAction') }}">
                 @csrf
                 <input type="text" name="ingredientes"/>
-                <input type="submit" value="Senta o dedo nesta coisa" />
+                <input type="submit" value="Senta o dedo nesta coisa" value="{{ $ingredientes ?? ''}}"/>
             </form>
         </article>
     </main>
+
+    @if (!empty($receita))
+        <code>
+            {!! preg_replace("/\r\n|\n/", '<br>', $receita) !!}
+        </code>
+    @endif
     <footer>
         Aw2Web - 2023
     </footer>
