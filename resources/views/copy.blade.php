@@ -42,11 +42,18 @@
                     <select name="estilo_copy">
                         <option value="formal">Formal</option>
                         <option value="descontraida">Descontraída</option>
+                        <option value="Vida Louca">Vida Louca</option>
                     </select>
                 </p>
                 <p>
                     <input type="submit" value="Bora"/>
                 </p>
+
+                @if (!empty($copyGerada))
+                    <code>
+                        {!! preg_replace("/\r\n|\n/", '<br>', $copyGerada) !!}
+                    </code>
+                @endif
                 
             </form>
         </article>

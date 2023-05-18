@@ -14,30 +14,14 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function copy(Request $r): View {
-        return view('copy');
-    }
-
     public function ingredientes(Request $r): View {
         return view('ingredientes');
-    }
-
-    public function copyAction(Request $r): View {
-        dd($r->all());
-        /*
-            "nome_produto"
-            "preco_produto" => "33"
-            "caracteristicas_produto"
-            "publico_produto"
-            "estilo_copy"
-        */
-        return view('copy');
     }
 
     public function ingredientesAction(Request $r): View {   
     //dd($r->all());
     $response = Http::withHeaders([       
-        'Authorization' => 'Bearer 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',
+        'Authorization' => 'Bearer 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',
         'Content-Type' => 'application/json',
     ])->post('https://api.openai.com/v1/completions', [
         'model' => "text-davinci-003",
