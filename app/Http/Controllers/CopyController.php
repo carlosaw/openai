@@ -37,6 +37,15 @@ class CopyController extends Controller
                 ['role' => 'user', 'content' => 'O estilo de escrita da copy deve ser muito: ' . $r->estilo_copy]
             ],
         ]);
+
+        $image = OpenAI::images()->create([
+            'prompt' => 'Crie uma imagem de: ' . $r->nome_produto. 'Com as seguintes características:' . $r->caracteristicas_produto,
+            'n' => 1,
+            'size' => '256x256',
+            'response_format' => 'url'
+        ]);
+        dd($image);
+
         $data['copyGerada'] = $result->choices[0]->message->content;
 
         return view('copy', $data);
